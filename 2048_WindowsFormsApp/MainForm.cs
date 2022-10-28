@@ -43,7 +43,14 @@ namespace _2048_WindowsFormsApp
                 var randRaw = randNumber % size;
                 if (labelMap[randCol, randRaw].Text == string.Empty)
                 {
-                    labelMap[randCol, randRaw].Text = "2";
+                    if (randNumber < size * size * 0.75)
+                    {
+                        labelMap[randCol, randRaw].Text = "2";
+                    }
+                    else
+                    {
+                        labelMap[randCol, randRaw].Text = "4";
+                    }
                     break;
                 }
             }
