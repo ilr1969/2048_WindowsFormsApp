@@ -9,6 +9,9 @@ namespace _2048_WindowsFormsApp
         private int size = 4;
         private Label[,] labelMap;
         Random random = new Random();
+        private int score = 0;
+        public static int maxScore = FileProvider.GetMaxScore();
+        public static string userName;
         public MainForm()
         {
             InitializeComponent();
@@ -16,7 +19,10 @@ namespace _2048_WindowsFormsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Auth auth = new Auth();
+            auth.ShowDialog();
             InitMap();
+            maxScoreLabel2.Text = FileProvider.GetMaxScore().ToString();
         }
 
         private void InitMap()
@@ -61,9 +67,9 @@ namespace _2048_WindowsFormsApp
             var label = new Label();
             var colPos = 10 + x * 76;
             var rawPos = 70 + y * 76;
-            label.Font = new Font("Microsoft Sans Serif", 18, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            label.Font = new Font("Microsoft Sans Serif", 18, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             label.Location = new Point(colPos, rawPos);
-            label.BackColor = System.Drawing.SystemColors.Info;
+            label.BackColor = SystemColors.Info;
             label.Size = new Size(70, 70);
             label.TabIndex = 1;
             label.TextAlign = ContentAlignment.MiddleCenter;
@@ -72,6 +78,9 @@ namespace _2048_WindowsFormsApp
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            User user = new User(userName, score);
+            FileProvider.WriteData(user);
+            FileProvider.WriteMaxScore(maxScore);
             this.Close();
         }
 
@@ -83,6 +92,9 @@ namespace _2048_WindowsFormsApp
 
         private void рестартToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            User user = new User(userName, score);
+            FileProvider.WriteData(user);
+            FileProvider.WriteMaxScore(maxScore);
             foreach (var i in labelMap)
             {
                 i.Text = "";
@@ -105,6 +117,7 @@ namespace _2048_WindowsFormsApp
                                 if (labelMap[k, j].Text == labelMap[i, j].Text)
                                 {
                                     var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
                                     labelMap[i, j].Text = newNumber.ToString();
                                     labelMap[k, j].Text = string.Empty;
                                     break;
@@ -148,6 +161,7 @@ namespace _2048_WindowsFormsApp
                                 if (labelMap[k, j].Text == labelMap[i, j].Text)
                                 {
                                     var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
                                     labelMap[i, j].Text = newNumber.ToString();
                                     labelMap[k, j].Text = string.Empty;
                                     break;
@@ -192,6 +206,7 @@ namespace _2048_WindowsFormsApp
                                 if (labelMap[i, j].Text == labelMap[i, k].Text)
                                 {
                                     var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
                                     labelMap[i, j].Text = newNumber.ToString();
                                     labelMap[i, k].Text = string.Empty;
                                     break;
@@ -235,6 +250,7 @@ namespace _2048_WindowsFormsApp
                                 if (labelMap[i, j].Text == labelMap[i, k].Text)
                                 {
                                     var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
                                     labelMap[i, j].Text = newNumber.ToString();
                                     labelMap[i, k].Text = string.Empty;
                                     break;
@@ -264,6 +280,30 @@ namespace _2048_WindowsFormsApp
                 }
                 GenerateCellNumber();
             }
+        }
+
+        private void SetScore(int newNumber)
+        {
+            score += newNumber;
+            scoreLabel2.Text = score.ToString();
+            if (int.Parse(maxScoreLabel2.Text) < int.Parse(scoreLabel2.Text))
+            {
+                maxScoreLabel2.Text = score.ToString();
+                maxScore = score;
+            }
+        }
+
+        private void статистикаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Results results = new Results();
+            results.ShowDialog();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            User user = new User(userName, score);
+            FileProvider.WriteData(user);
+            FileProvider.WriteMaxScore(maxScore);
         }
     }
 }
