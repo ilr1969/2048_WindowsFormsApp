@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace _2048_WindowsFormsApp
 {
@@ -76,7 +75,7 @@ namespace _2048_WindowsFormsApp
                     else
                     {
                         labelMap[randCol, randRaw].Text = "4";
-                        labelMap[randCol, randRaw].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                        labelMap[randCol, randRaw].BackColor = System.Drawing.ColorTranslator.FromHtml("#D8BFD8");
                     }
                     break;
                 }
@@ -100,7 +99,7 @@ namespace _2048_WindowsFormsApp
         private void ВыходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WriteNewUser();
-            this.Close();
+            Application.Exit();
         }
 
         private void ПравилаИгрыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -115,6 +114,7 @@ namespace _2048_WindowsFormsApp
             foreach (var i in labelMap)
             {
                 i.Text = string.Empty;
+                i.BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
             }
             GenerateCellNumber();
         }
@@ -127,14 +127,25 @@ namespace _2048_WindowsFormsApp
                 {
                     for (int j = 0; j < size; j++)
                     {
-                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i + 1, j].Text)
+                        if (labelMap[i, j].Text != string.Empty)
                         {
-                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                            SetScore(newNumber);
-                            labelMap[i, j].Text = newNumber.ToString();
-                            labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                            labelMap[i + 1, j].Text = string.Empty;
-                            labelMap[i + 1, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                            for (int k = i + 1; k < size; k++)
+                            {
+                                if (labelMap[i, j].Text == labelMap[k, j].Text)
+                                {
+                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
+                                    labelMap[i, j].Text = newNumber.ToString();
+                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                    labelMap[k, j].Text = string.Empty;
+                                    labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                    break;
+                                }
+                                if (labelMap[k, j].Text != string.Empty)
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -161,20 +172,32 @@ namespace _2048_WindowsFormsApp
                 }
             }
 
+
             if (e.KeyCode == Keys.Right)
             {
                 for (int i = size - 1; i > 0; i--)
                 {
                     for (int j = 0; j < size; j++)
                     {
-                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i - 1, j].Text)
+                        if (labelMap[i, j].Text != string.Empty)
                         {
-                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                            SetScore(newNumber);
-                            labelMap[i, j].Text = newNumber.ToString();
-                            labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                            labelMap[i - 1, j].Text = string.Empty;
-                            labelMap[i - 1, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                            for (int k = i - 1; k >= 0; k--)
+                            {
+                                if (labelMap[i, j].Text == labelMap[k, j].Text)
+                                {
+                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
+                                    labelMap[i, j].Text = newNumber.ToString();
+                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                    labelMap[k, j].Text = string.Empty;
+                                    labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                    break;
+                                }
+                                if (labelMap[k, j].Text != string.Empty)
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -205,17 +228,28 @@ namespace _2048_WindowsFormsApp
             {
                 for (int i = 0; i < size; i++)
                 {
-                    for (int j = 0; j < size - 1; j++)
+                    for (int j = 0; j < size; j++)
                     {
-                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i, j + 1].Text)
+                        if (labelMap[i, j].Text != string.Empty)
                         {
-                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                            SetScore(newNumber);
-                            labelMap[i, j].Text = newNumber.ToString();
-                            labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                            labelMap[i, j + 1].Text = string.Empty;
-                            labelMap[i, j + 1].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                            break;
+                            for (int k = j + 1; k < size; k++)
+                            {
+                                if (labelMap[i, j].Text == labelMap[i, k].Text)
+                                {
+
+                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
+                                    labelMap[i, j].Text = newNumber.ToString();
+                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                    labelMap[i, k].Text = string.Empty;
+                                    labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                    break;
+                                }
+                                if (labelMap[k, j].Text != string.Empty)
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -246,17 +280,27 @@ namespace _2048_WindowsFormsApp
             {
                 for (int i = 0; i < size; i++)
                 {
-                    for (int j = size - 1; j > 0; j--)
+                    for (int j = size - 1; j >= 0; j--)
                     {
-                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i, j - 1].Text)
+                        if (labelMap[i, j].Text != string.Empty)
                         {
-                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                            SetScore(newNumber);
-                            labelMap[i, j].Text = newNumber.ToString();
-                            labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                            labelMap[i, j - 1].Text = string.Empty;
-                            labelMap[i, j - 1].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                            break;
+                            for (int k = j - 1; k >= 0; k--)
+                            {
+                                if (labelMap[i, j].Text == labelMap[i, k].Text)
+                                {
+                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                    SetScore(newNumber);
+                                    labelMap[i, j].Text = newNumber.ToString();
+                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                    labelMap[i, k].Text = string.Empty;
+                                    labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                    break;
+                                }
+                                if (labelMap[k, j].Text != string.Empty)
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
