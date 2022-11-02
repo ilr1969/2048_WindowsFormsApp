@@ -48,19 +48,13 @@ namespace _2048_WindowsFormsApp
 
         private void GenerateCellNumber()
         {
-            List<string> LabelsText = new List<string>();
-            foreach (var i in labelMap)
-            {
-                if (i.Text != string.Empty)
-                {
-                    LabelsText.Add(i.Text);
-                }
-            }
+            
             while (true)
             {
                 var randNumber = random.Next(size * size);
                 var randCol = randNumber / size;
                 var randRaw = randNumber % size;
+                List<string> LabelsText = CheckAvailableCells();
                 if (LabelsText.Count == size * size)
                 {
                     MessageBox.Show("Нет свободных ячеек, начните заново!");
@@ -80,6 +74,20 @@ namespace _2048_WindowsFormsApp
                     break;
                 }
             }
+        }
+
+        private List<string> CheckAvailableCells()
+        {
+            List<string> LabelsText = new List<string>();
+            foreach (var i in labelMap)
+            {
+                if (i.Text != string.Empty)
+                {
+                    LabelsText.Add(i.Text);
+                }
+            }
+
+            return LabelsText;
         }
 
         private Label CreateLabel(int x, int y)
@@ -123,210 +131,233 @@ namespace _2048_WindowsFormsApp
         {
             if (e.KeyCode == Keys.Left)
             {
-                for (int i = 0; i < size - 1; i++)
-                {
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (labelMap[i, j].Text != string.Empty)
-                        {
-                            for (int k = i + 1; k < size; k++)
-                            {
-                                if (labelMap[i, j].Text == labelMap[k, j].Text)
-                                {
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[k, j].Text = string.Empty;
-                                    labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
-                                if (labelMap[k, j].Text != string.Empty)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (int i = 0; i < size; i++)
-                {
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (labelMap[i, j].Text == string.Empty)
-                        {
-                            for (int k = i + 1; k < size; k++)
-                            {
-                                if (labelMap[k, j].Text != string.Empty)
-                                {
-                                    labelMap[i, j].Text = labelMap[k, j].Text;
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[k, j].Text = string.Empty;
-                                    labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                MoveLeft();
+                GenerateCellNumber();
             }
 
 
             if (e.KeyCode == Keys.Right)
             {
-                for (int i = size - 1; i > 0; i--)
-                {
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (labelMap[i, j].Text != string.Empty)
-                        {
-                            for (int k = i - 1; k >= 0; k--)
-                            {
-                                if (labelMap[i, j].Text == labelMap[k, j].Text)
-                                {
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[k, j].Text = string.Empty;
-                                    labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
-                                if (labelMap[k, j].Text != string.Empty)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (int i = size - 1; i > 0; i--)
-                {
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (labelMap[i, j].Text == string.Empty)
-                        {
-                            for (int k = i - 1; k >= 0; k--)
-                            {
-                                if (labelMap[k, j].Text != string.Empty)
-                                {
-                                    labelMap[i, j].Text = labelMap[k, j].Text;
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[k, j].Text = string.Empty;
-                                    labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                MoveRight();
+                GenerateCellNumber();
             }
 
             if (e.KeyCode == Keys.Up)
             {
-                for (int i = 0; i < size; i++)
-                {
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (labelMap[i, j].Text != string.Empty)
-                        {
-                            for (int k = j + 1; k < size; k++)
-                            {
-                                if (labelMap[i, j].Text == labelMap[i, k].Text)
-                                {
-
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[i, k].Text = string.Empty;
-                                    labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
-                                if (labelMap[k, j].Text != string.Empty)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (int i = 0; i < size; i++)
-                {
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (labelMap[i, j].Text == string.Empty)
-                        {
-                            for (int k = j + 1; k < size; k++)
-                            {
-                                if (labelMap[i, k].Text != string.Empty)
-                                {
-                                    labelMap[i, j].Text = labelMap[i, k].Text;
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[i, k].Text = string.Empty;
-                                    labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                MoveUp();
+                GenerateCellNumber();
             }
 
             if (e.KeyCode == Keys.Down)
             {
-                for (int i = 0; i < size; i++)
-                {
-                    for (int j = size - 1; j >= 0; j--)
-                    {
-                        if (labelMap[i, j].Text != string.Empty)
-                        {
-                            for (int k = j - 1; k >= 0; k--)
-                            {
-                                if (labelMap[i, j].Text == labelMap[i, k].Text)
-                                {
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[i, k].Text = string.Empty;
-                                    labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
-                                if (labelMap[k, j].Text != string.Empty)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                MoveDown();
+                GenerateCellNumber();
+            }
+        }
 
-                for (int i = 0; i < size; i++)
+        private void MoveLeft()
+        {
+            for (int i = 0; i < size - 1; i++)
+            {
+                for (int j = 0; j < size; j++)
                 {
-                    for (int j = size - 1; j >= 0; j--)
+                    if (labelMap[i, j].Text != string.Empty)
                     {
-                        if (labelMap[i, j].Text == string.Empty)
+                        for (int k = i + 1; k < size; k++)
                         {
-                            for (int k = j - 1; k >= 0; k--)
+                            if (labelMap[i, j].Text == labelMap[k, j].Text)
                             {
-                                if (labelMap[i, k].Text != string.Empty)
-                                {
-                                    labelMap[i, j].Text = labelMap[i, k].Text;
-                                    labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
-                                    labelMap[i, k].Text = string.Empty;
-                                    labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
-                                    break;
-                                }
+                                var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                SetScore(newNumber);
+                                labelMap[i, j].Text = newNumber.ToString();
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[k, j].Text = string.Empty;
+                                labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                            if (labelMap[k, j].Text != string.Empty)
+                            {
+                                break;
                             }
                         }
                     }
                 }
             }
-            GenerateCellNumber();
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (labelMap[i, j].Text == string.Empty)
+                    {
+                        for (int k = i + 1; k < size; k++)
+                        {
+                            if (labelMap[k, j].Text != string.Empty)
+                            {
+                                labelMap[i, j].Text = labelMap[k, j].Text;
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[k, j].Text = string.Empty;
+                                labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MoveRight()
+        {
+            for (int i = size - 1; i > 0; i--)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (labelMap[i, j].Text != string.Empty)
+                    {
+                        for (int k = i - 1; k >= 0; k--)
+                        {
+                            if (labelMap[i, j].Text == labelMap[k, j].Text)
+                            {
+                                var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                SetScore(newNumber);
+                                labelMap[i, j].Text = newNumber.ToString();
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[k, j].Text = string.Empty;
+                                labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                            if (labelMap[k, j].Text != string.Empty)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = size - 1; i > 0; i--)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (labelMap[i, j].Text == string.Empty)
+                    {
+                        for (int k = i - 1; k >= 0; k--)
+                        {
+                            if (labelMap[k, j].Text != string.Empty)
+                            {
+                                labelMap[i, j].Text = labelMap[k, j].Text;
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[k, j].Text = string.Empty;
+                                labelMap[k, j].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MoveDown()
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = size - 1; j >= 0; j--)
+                {
+                    if (labelMap[i, j].Text != string.Empty)
+                    {
+                        for (int k = j - 1; k >= 0; k--)
+                        {
+                            if (labelMap[i, j].Text == labelMap[i, k].Text)
+                            {
+                                var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                SetScore(newNumber);
+                                labelMap[i, j].Text = newNumber.ToString();
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[i, k].Text = string.Empty;
+                                labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                            if (labelMap[k, j].Text != string.Empty)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = size - 1; j >= 0; j--)
+                {
+                    if (labelMap[i, j].Text == string.Empty)
+                    {
+                        for (int k = j - 1; k >= 0; k--)
+                        {
+                            if (labelMap[i, k].Text != string.Empty)
+                            {
+                                labelMap[i, j].Text = labelMap[i, k].Text;
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[i, k].Text = string.Empty;
+                                labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MoveUp()
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (labelMap[i, j].Text != string.Empty)
+                    {
+                        for (int k = j + 1; k < size; k++)
+                        {
+                            if (labelMap[i, j].Text == labelMap[i, k].Text)
+                            {
+
+                                var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                                SetScore(newNumber);
+                                labelMap[i, j].Text = newNumber.ToString();
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[i, k].Text = string.Empty;
+                                labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                            if (labelMap[k, j].Text != string.Empty)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (labelMap[i, j].Text == string.Empty)
+                    {
+                        for (int k = j + 1; k < size; k++)
+                        {
+                            if (labelMap[i, k].Text != string.Empty)
+                            {
+                                labelMap[i, j].Text = labelMap[i, k].Text;
+                                labelMap[i, j].BackColor = System.Drawing.ColorTranslator.FromHtml(Colors[int.Parse(labelMap[i, j].Text)]);
+                                labelMap[i, k].Text = string.Empty;
+                                labelMap[i, k].BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void SetScore(int newNumber)
@@ -353,9 +384,12 @@ namespace _2048_WindowsFormsApp
 
         private void WriteNewUser()
         {
-            User user = new User(userName, score);
-            FileProvider.WriteData(user);
-            FileProvider.WriteMaxScore(maxScore);
+            if (score != 0)
+            {
+                User user = new User(userName, score);
+                FileProvider.WriteData(user);
+                FileProvider.WriteMaxScore(maxScore);
+            }
         }
 
         private void Х7ToolStripMenuItem_Click(object sender, EventArgs e)
