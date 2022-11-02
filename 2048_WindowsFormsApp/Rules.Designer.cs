@@ -61,8 +61,10 @@ namespace _2048_WindowsFormsApp
             this.ClientSize = new System.Drawing.Size(518, 183);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Rules";
-            this.Text = "Rules";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Правила игры";
             this.ResumeLayout(false);
             this.PerformLayout();
 
