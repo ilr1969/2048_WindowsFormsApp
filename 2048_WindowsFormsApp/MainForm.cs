@@ -395,6 +395,11 @@ namespace _2048_WindowsFormsApp
         private void Х7ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             size = 5;
+            ClearLabels();
+        }
+
+        private void ClearLabels()
+        {
             ClearField();
             InitMap();
             this.CenterToScreen();
@@ -403,17 +408,13 @@ namespace _2048_WindowsFormsApp
         private void Х9ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             size = 7;
-            ClearField();
-            InitMap();
-            this.CenterToScreen();
+            ClearLabels();
         }
 
         private void х4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             size = 4;
-            ClearField();
-            InitMap();
-            this.CenterToScreen();
+            ClearLabels();
         }
 
         private void ClearField()
