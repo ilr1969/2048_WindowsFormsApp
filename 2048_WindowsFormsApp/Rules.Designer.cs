@@ -65,6 +65,7 @@ namespace _2048_WindowsFormsApp
             this.Name = "Rules";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Правила игры";
+            this.Load += new System.EventHandler(this.Rules_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
