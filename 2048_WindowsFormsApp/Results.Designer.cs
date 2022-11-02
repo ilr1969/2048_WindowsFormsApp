@@ -43,29 +43,31 @@ namespace _2048_WindowsFormsApp
             this.UserScore});
             this.resultsDataGridView.Location = new System.Drawing.Point(25, 25);
             this.resultsDataGridView.Name = "resultsDataGridView";
-            this.resultsDataGridView.Size = new System.Drawing.Size(240, 150);
+            this.resultsDataGridView.Size = new System.Drawing.Size(274, 475);
             this.resultsDataGridView.TabIndex = 0;
             // 
             // UserName
             // 
             this.UserName.HeaderText = "Name";
             this.UserName.Name = "UserName";
-            this.UserName.Width = 140;
+            this.UserName.Width = 150;
             // 
             // UserScore
             // 
             this.UserScore.HeaderText = "Score";
             this.UserScore.Name = "UserScore";
-            this.UserScore.Width = 50;
+            this.UserScore.Width = 60;
             // 
             // Results
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 197);
+            this.ClientSize = new System.Drawing.Size(325, 523);
             this.Controls.Add(this.resultsDataGridView);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Results";
-            this.Text = "Results";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Статистика игры";
             this.Load += new System.EventHandler(this.Results_Load);
             ((System.ComponentModel.ISupportInitialize)(this.resultsDataGridView)).EndInit();
             this.ResumeLayout(false);

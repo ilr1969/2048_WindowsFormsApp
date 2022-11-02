@@ -106,23 +106,16 @@ namespace _2048_WindowsFormsApp
         {
             if (e.KeyCode == Keys.Left)
             {
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < size - 1; i++)
                 {
                     for (int j = 0; j < size; j++)
                     {
-                        if (labelMap[i, j].Text != string.Empty)
+                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i + 1, j].Text)
                         {
-                            for (int k = i + 1; k < size; k++)
-                            {
-                                if (labelMap[k, j].Text == labelMap[i, j].Text)
-                                {
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[k, j].Text = string.Empty;
-                                    break;
-                                }
-                            }
+                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                            SetScore(newNumber);
+                            labelMap[i, j].Text = newNumber.ToString();
+                            labelMap[i + 1, j].Text = string.Empty;
                         }
                     }
                 }
@@ -150,23 +143,17 @@ namespace _2048_WindowsFormsApp
 
             if (e.KeyCode == Keys.Right)
             {
-                for (int i = size - 1; i >= 0; i--)
+                for (int i = size - 1; i > 0; i--)
                 {
                     for (int j = 0; j < size; j++)
                     {
-                        if (labelMap[i, j].Text != string.Empty)
+                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i - 1, j].Text)
                         {
-                            for (int k = i - 1; k >= 0; k--)
-                            {
-                                if (labelMap[k, j].Text == labelMap[i, j].Text)
-                                {
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[k, j].Text = string.Empty;
-                                    break;
-                                }
-                            }
+                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                            SetScore(newNumber);
+                            labelMap[i, j].Text = newNumber.ToString();
+                            labelMap[i - 1, j].Text = string.Empty;
+                            break;
                         }
                     }
                 }
@@ -188,7 +175,6 @@ namespace _2048_WindowsFormsApp
                             }
                         }
                     }
-
                 }
                 GenerateCellNumber();
             }
@@ -197,21 +183,15 @@ namespace _2048_WindowsFormsApp
             {
                 for (int i = 0; i < size; i++)
                 {
-                    for (int j = 0; j < size; j++)
+                    for (int j = 0; j < size - 1; j++)
                     {
-                        if (labelMap[i, j].Text != string.Empty)
+                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i, j + 1].Text)
                         {
-                            for (int k = j + 1; k < size; k++)
-                            {
-                                if (labelMap[i, j].Text == labelMap[i, k].Text)
-                                {
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[i, k].Text = string.Empty;
-                                    break;
-                                }
-                            }
+                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                            SetScore(newNumber);
+                            labelMap[i, j].Text = newNumber.ToString();
+                            labelMap[i, j + 1].Text = string.Empty;
+                            break;
                         }
                     }
                 }
@@ -241,21 +221,15 @@ namespace _2048_WindowsFormsApp
             {
                 for (int i = 0; i < size; i++)
                 {
-                    for (int j = size - 1; j >= 0; j--)
+                    for (int j = size - 1; j > 0; j--)
                     {
-                        if (labelMap[i, j].Text != string.Empty)
+                        if (labelMap[i, j].Text != string.Empty && labelMap[i, j].Text == labelMap[i, j - 1].Text)
                         {
-                            for (int k = j - 1; k >= 0; k--)
-                            {
-                                if (labelMap[i, j].Text == labelMap[i, k].Text)
-                                {
-                                    var newNumber = int.Parse(labelMap[i, j].Text) * 2;
-                                    SetScore(newNumber);
-                                    labelMap[i, j].Text = newNumber.ToString();
-                                    labelMap[i, k].Text = string.Empty;
-                                    break;
-                                }
-                            }
+                            var newNumber = int.Parse(labelMap[i, j].Text) * 2;
+                            SetScore(newNumber);
+                            labelMap[i, j].Text = newNumber.ToString();
+                            labelMap[i, j - 1].Text = string.Empty;
+                            break;
                         }
                     }
                 }
@@ -304,6 +278,35 @@ namespace _2048_WindowsFormsApp
             User user = new User(userName, score);
             FileProvider.WriteData(user);
             FileProvider.WriteMaxScore(maxScore);
+        }
+
+        private void х7ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            size = 5;
+            ClearField();
+            InitMap();
+        }
+
+        private void х9ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            size = 7;
+            ClearField();
+            InitMap();
+        }
+
+        private void х4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            size = 4;
+            ClearField();
+            InitMap();
+        }
+
+        private void ClearField()
+        {
+            foreach (var i in labelMap)
+            {
+                Controls.Remove(i);
+            }
         }
     }
 }

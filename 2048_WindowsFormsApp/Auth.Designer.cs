@@ -71,9 +71,10 @@ namespace _2048_WindowsFormsApp
             this.Controls.Add(this.acceptButton);
             this.Controls.Add(this.loginTextBox);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Auth";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Auth";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Аутентификация";
             this.Load += new System.EventHandler(this.Auth_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

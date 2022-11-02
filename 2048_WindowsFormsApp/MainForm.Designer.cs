@@ -36,6 +36,9 @@ namespace _2048_WindowsFormsApp
             this.статистикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.правилаИгрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.х4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.х7ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.х9ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scoreLabel1 = new System.Windows.Forms.Label();
             this.maxScoreLabel1 = new System.Windows.Forms.Label();
             this.maxScoreLabel2 = new System.Windows.Forms.Label();
@@ -47,10 +50,13 @@ namespace _2048_WindowsFormsApp
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.менюToolStripMenuItem,
-            this.справкаToolStripMenuItem});
+            this.справкаToolStripMenuItem,
+            this.х4ToolStripMenuItem,
+            this.х7ToolStripMenuItem,
+            this.х9ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(315, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(316, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "0";
             // 
@@ -100,6 +106,27 @@ namespace _2048_WindowsFormsApp
             this.правилаИгрыToolStripMenuItem.Text = "Правила игры";
             this.правилаИгрыToolStripMenuItem.Click += new System.EventHandler(this.правилаИгрыToolStripMenuItem_Click);
             // 
+            // х4ToolStripMenuItem
+            // 
+            this.х4ToolStripMenuItem.Name = "х4ToolStripMenuItem";
+            this.х4ToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.х4ToolStripMenuItem.Text = "4х4";
+            this.х4ToolStripMenuItem.Click += new System.EventHandler(this.х4ToolStripMenuItem_Click);
+            // 
+            // х7ToolStripMenuItem
+            // 
+            this.х7ToolStripMenuItem.Name = "х7ToolStripMenuItem";
+            this.х7ToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.х7ToolStripMenuItem.Text = "5х5";
+            this.х7ToolStripMenuItem.Click += new System.EventHandler(this.х7ToolStripMenuItem_Click);
+            // 
+            // х9ToolStripMenuItem
+            // 
+            this.х9ToolStripMenuItem.Name = "х9ToolStripMenuItem";
+            this.х9ToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.х9ToolStripMenuItem.Text = "7х7";
+            this.х9ToolStripMenuItem.Click += new System.EventHandler(this.х9ToolStripMenuItem_Click);
+            // 
             // scoreLabel1
             // 
             this.scoreLabel1.AutoSize = true;
@@ -144,12 +171,15 @@ namespace _2048_WindowsFormsApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 381);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(316, 381);
             this.Controls.Add(this.scoreLabel2);
             this.Controls.Add(this.maxScoreLabel2);
             this.Controls.Add(this.maxScoreLabel1);
             this.Controls.Add(this.scoreLabel1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -177,6 +207,9 @@ namespace _2048_WindowsFormsApp
         private System.Windows.Forms.Label maxScoreLabel1;
         private System.Windows.Forms.Label maxScoreLabel2;
         private System.Windows.Forms.Label scoreLabel2;
+        private System.Windows.Forms.ToolStripMenuItem х4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem х7ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem х9ToolStripMenuItem;
     }
 }
 
