@@ -51,6 +51,7 @@ namespace _2048_WindowsFormsApp
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(135, 29);
             this.loginTextBox.TabIndex = 1;
+            this.loginTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.loginTextBox_KeyDown);
             // 
             // acceptButton
             // 

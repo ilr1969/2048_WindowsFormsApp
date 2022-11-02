@@ -75,21 +75,21 @@ namespace _2048_WindowsFormsApp
             this.рестартToolStripMenuItem.Name = "рестартToolStripMenuItem";
             this.рестартToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.рестартToolStripMenuItem.Text = "Рестарт";
-            this.рестартToolStripMenuItem.Click += new System.EventHandler(this.рестартToolStripMenuItem_Click);
+            this.рестартToolStripMenuItem.Click += new System.EventHandler(this.РестартToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.ВыходToolStripMenuItem_Click);
             // 
             // статистикаToolStripMenuItem
             // 
             this.статистикаToolStripMenuItem.Name = "статистикаToolStripMenuItem";
             this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.статистикаToolStripMenuItem.Text = "Статистика";
-            this.статистикаToolStripMenuItem.Click += new System.EventHandler(this.статистикаToolStripMenuItem_Click);
+            this.статистикаToolStripMenuItem.Click += new System.EventHandler(this.СтатистикаToolStripMenuItem_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -104,7 +104,7 @@ namespace _2048_WindowsFormsApp
             this.правилаИгрыToolStripMenuItem.Name = "правилаИгрыToolStripMenuItem";
             this.правилаИгрыToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.правилаИгрыToolStripMenuItem.Text = "Правила игры";
-            this.правилаИгрыToolStripMenuItem.Click += new System.EventHandler(this.правилаИгрыToolStripMenuItem_Click);
+            this.правилаИгрыToolStripMenuItem.Click += new System.EventHandler(this.ПравилаИгрыToolStripMenuItem_Click);
             // 
             // х4ToolStripMenuItem
             // 
@@ -118,14 +118,14 @@ namespace _2048_WindowsFormsApp
             this.х7ToolStripMenuItem.Name = "х7ToolStripMenuItem";
             this.х7ToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.х7ToolStripMenuItem.Text = "5х5";
-            this.х7ToolStripMenuItem.Click += new System.EventHandler(this.х7ToolStripMenuItem_Click);
+            this.х7ToolStripMenuItem.Click += new System.EventHandler(this.Х7ToolStripMenuItem_Click);
             // 
             // х9ToolStripMenuItem
             // 
             this.х9ToolStripMenuItem.Name = "х9ToolStripMenuItem";
             this.х9ToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.х9ToolStripMenuItem.Text = "7х7";
-            this.х9ToolStripMenuItem.Click += new System.EventHandler(this.х9ToolStripMenuItem_Click);
+            this.х9ToolStripMenuItem.Click += new System.EventHandler(this.Х9ToolStripMenuItem_Click);
             // 
             // scoreLabel1
             // 
