@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace _2048_WindowsFormsApp
 {
@@ -54,8 +55,7 @@ namespace _2048_WindowsFormsApp
                 var randNumber = random.Next(size * size);
                 var randCol = randNumber / size;
                 var randRaw = randNumber % size;
-                List<string> LabelsText = CheckAvailableCells();
-                if (LabelsText.Count == size * size)
+                if (CheckAvailableCells())
                 {
                     MessageBox.Show("Нет свободных ячеек, начните заново!");
                     break;
@@ -76,18 +76,16 @@ namespace _2048_WindowsFormsApp
             }
         }
 
-        private List<string> CheckAvailableCells()
+        private bool CheckAvailableCells()
         {
-            List<string> LabelsText = new List<string>();
             foreach (var i in labelMap)
             {
-                if (i.Text != string.Empty)
+                if (i.Text == string.Empty)
                 {
-                    LabelsText.Add(i.Text);
+                    return false;
                 }
             }
-
-            return LabelsText;
+            return true;
         }
 
         private Label CreateLabel(int x, int y)
